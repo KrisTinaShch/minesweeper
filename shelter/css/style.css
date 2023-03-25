@@ -1,1 +1,74 @@
 @import url(reset.css);
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* navigation menu */
+header {
+    background: #000;
+    position: absolute;
+    width: 100%;
+}
+
+.nav-menu__container {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 40px;
+    margin: 0 auto;
+}
+
+.logo-container h1 {
+    font-family: 'Georgia';
+    color: #F1CDB3;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+}
+
+.logo-container p {
+    margin-top: 10px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.11em;
+    color: #fff;
+}
+
+.nav-menu__list {
+    position: relative;
+    display: flex;
+    gap: 35px;
+}
+
+.nav-menu__list li {
+    position: relative;
+}
+
+.nav-menu__list li>a {
+    font-size: 15px;
+    color: #CDCDCD;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.nav-menu__list li::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #F1CDB3;
+    bottom: -7px;
+    left: 0;
+}
+
+
+
