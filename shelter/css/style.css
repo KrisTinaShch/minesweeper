@@ -13,6 +13,21 @@ body {
     padding: 25px 40px;
 }
 
+h2 {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+}
+
+p {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 160%;
+}
+
 /* navigation menu */
 header {
     position: absolute;
@@ -98,6 +113,7 @@ header {
     bottom: -7px;
     left: 0;
 }
+
 /* Not Only Section */
 .not-only {
     height: 908px;
@@ -122,9 +138,6 @@ header {
 }
 
 .not-only_right_content h2 {
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
     font-size: 44px;
     width: 310px;
     line-height: 57px;
@@ -152,4 +165,31 @@ header {
     color: #000;
 }
 
-/* Not Only Section */
+/* About us */
+.about-us-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 588px;
+    gap: 120px;
+}
+
+.about-us-container img {
+    height: 408px;
+    margin-bottom: 20px;
+}
+
+.about-us-container h2 {
+    color: #545454;
+    line-height: 43px;
+    letter-spacing: 0.06em;
+}
+
+.about-us-container p {
+    margin-top: 25px;
+}
+
+.left-content {
+    width: 430px;
+    margin-bottom: 18px;
+}
