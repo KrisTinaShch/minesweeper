@@ -18,13 +18,14 @@ h1,
 h2,
 h3,
 h4,
-h5,
-a {
+h5 {
     letter-spacing: 0.06em;
+    line-height: 130%;
 }
 
 a {
     color: #000;
+    letter-spacing: 0.06em;
 }
 
 h2 {
@@ -40,6 +41,10 @@ p {
     font-weight: 400;
     font-size: 15px;
     line-height: 160%;
+}
+
+.text-center {
+    text-align: center;
 }
 
 /* navigation menu */
@@ -316,3 +321,34 @@ header {
     left: 31%;
 }
 
+.help {
+    height: 611px;
+    padding: 55px 0;
+}
+
+.help-row {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 120px;
+}
+
+.help-row img {
+    width: 60px;
+    height: 60px;
+}
+
+.help-row p {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    letter-spacing: 0.06em;
+    margin-top: 25px;
+}
+
+
+.help-upper-row {
+    margin-top: 60px;
+    margin-bottom: 65px;
+}
