@@ -321,6 +321,7 @@ header {
     left: 31%;
 }
 
+/* Help section */
 .help {
     height: 611px;
     padding: 55px 0;
@@ -351,4 +352,68 @@ header {
 .help-upper-row {
     margin-top: 60px;
     margin-bottom: 65px;
+}
+
+/* In addition */
+
+.in-addition {
+    height: 462px;
+}
+
+.in-addition-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+}
+
+.in-addition .left-content {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.in-addition .addition-description {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #B2B2B2;
+}
+
+.left-content h2 {
+    width: 300px;
+}
+
+.left-content p {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+}
+
+.in-addition .right-content {
+    padding-right: 30px;
+}
+
+.in-addition .right-content img {
+    margin-top: -32px;
+}
+
+.credit-card {
+    padding: 0px 15px;
+    width: 349px;
+    height: 43px;
+    background: #F1CDB3;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.credit-card p {
+    font-size: 20px;
+    color: #545454;
 }
