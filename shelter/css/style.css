@@ -417,3 +417,59 @@ header {
     font-size: 20px;
     color: #545454;
 }
+
+footer {
+    height: 350px;
+    background: url(../images/footer/footer-bg.png) 0 0/ cover no-repeat;
+    position: relative;
+}
+
+footer .container {
+    padding: 0;
+    height: 100%;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 40px;
+    height: 100%;
+}
+
+.footer-container h2 {
+    color: #fff;
+}
+
+.footer-container p {
+    color: #F1CDB3;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+}
+
+.footer-container .row {
+    width: 312px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-right: 13px;
+}
+
+.puppy-row img {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+}
+
+.footer-information {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.footer-container .first-row {
+    gap: 40px;
+}
