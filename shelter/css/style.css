@@ -147,7 +147,7 @@ header {
     position: relative;
 }
 
-.nav-menu__list li:first-child>a {
+.nav-menu__list li._active-page>a {
     color: #fff;
 }
 
