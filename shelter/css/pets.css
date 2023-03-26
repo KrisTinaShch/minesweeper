@@ -111,6 +111,7 @@ header {
 
 .pagination-arrows._inactive {
     border: 2px solid #CDCDCD;
+    cursor: not-allowed;
 }
 
 .pagination-arrows._active {
