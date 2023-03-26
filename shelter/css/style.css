@@ -1,10 +1,23 @@
 @import url(reset.css);
 
+*,
+html,
+body {
+    scroll-behavior: smooth !important;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
-    position: relative;
     box-sizing: border-box;
+
 }
+
+:root {
+    --button-orange-bg: #F1CDB3;
+    --button-orange-bg-hover: #FDDCC4;
+    --button-border-color: #F1CDB3;
+}
+
 
 /* main css */
 .container {
@@ -14,40 +27,82 @@ body {
     position: relative;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-    letter-spacing: 0.06em;
-    line-height: 130%;
-}
-
 a {
+    transition: 0.3s ease;
     color: #000;
-    letter-spacing: 0.06em;
 }
 
 h2 {
     font-family: 'Georgia';
-    font-style: normal;
     font-weight: 400;
     font-size: 35px;
 }
 
 p {
     font-family: 'Arial';
-    font-style: normal;
     font-weight: 400;
     font-size: 15px;
-    line-height: 160%;
+    line-height: 24px;
+}
+
+h2 {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 57.2px;
+}
+
+h3 {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 45.5px;
+    letter-spacing: 0.06em;
 }
 
 .text-center {
     text-align: center;
 }
 
+.white-text {
+    color: #fff;
+}
+
+.button-full-bg {
+    background: var(--button-orange-bg);
+    border-radius: 100px;
+    width: fit-content;
+    text-align: center;
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    transition: 0.3s ease;
+}
+
+.button-full-bg:hover {
+    background: var(--button-orange-bg-hover);
+}
+
+.button-border-bg {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 17px;
+    text-align: center;
+    width: fit-content;
+    border: 2px solid var(--button-border-color);
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    transition: 0.3s ease;
+}
+
+.button-border-bg:hover {
+    border: 2px solid var(--button-orange-bg-hover);
+    background: var(--button-orange-bg-hover);
+}
+
 /* navigation menu */
+
 header {
     position: absolute;
     width: 100%;
@@ -58,27 +113,23 @@ header {
 .nav-menu__container {
     width: 1280px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 25px 40px;
+    justify-content: space-between;
+    padding: 30px 40px;
     margin: 0 auto;
 }
 
 .logo-container h1 {
     font-family: 'Georgia';
     color: #F1CDB3;
-    font-style: normal;
     font-weight: 400;
     font-size: 32px;
     letter-spacing: 2px;
-    margin-top: 8px;
+    margin-top: 2px;
 }
 
 .logo-container p {
-    margin-top: 10px;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
+    margin: 11px 0px 0px 2px;
     font-size: 13px;
     line-height: 15px;
     letter-spacing: 0.11em;
@@ -86,13 +137,18 @@ header {
 }
 
 .nav-menu__list {
+    margin-top: -3px;
     position: relative;
     display: flex;
-    gap: 35px;
+    gap: 36px;
 }
 
 .nav-menu__list li {
     position: relative;
+}
+
+.nav-menu__list li:first-child>a {
+    color: #fff;
 }
 
 .nav-menu__list li>a {
@@ -101,12 +157,13 @@ header {
     position: relative;
 }
 
-.nav-menu__list li:first-child::after {
+
+.nav-menu__list li._active-page::after {
     content: '';
     position: absolute;
     width: 100%;
     height: 3px;
-    background: #F1CDB3;
+    background: var(--button-orange-bg);
     bottom: -7px;
     left: 0;
     transition: 0.3s ease;
@@ -117,36 +174,40 @@ header {
     position: absolute;
     width: 0%;
     height: 3px;
-    background: #F1CDB3;
+    background: var(--button-orange-bg);
     bottom: -7px;
     left: 0;
     transition: 0.3s ease;
 }
 
-.nav-menu__list li:hover::after {
+.nav-menu__list li:active::after {
     content: '';
     position: absolute;
     width: 100%;
     height: 3px;
-    background: #F1CDB3;
+    background: var(--button-orange-bg);
     bottom: -7px;
     left: 0;
 }
 
+.nav-menu__list li:hover a {
+    color: #fff;
+}
+
 /* Not Only Section */
+
 .not-only {
     height: 908px;
     background: url(../images/notOnlySection/start-screen-gradient-background.png) 0 0/40px 70px, radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%)
 }
 
-.not-only__container {
+.not-only__puppy {
     position: relative;
-    color: #fff;
     height: 100%;
     background: url(../images/notOnlySection/start-screen-puppy.png) 93% 100% no-repeat;
 }
 
-.not-only_right_content {
+.not-only .right-content {
     height: 100%;
     width: 39%;
     display: flex;
@@ -156,35 +217,23 @@ header {
     padding-top: 101px;
 }
 
-.not-only_right_content h2 {
-    font-size: 44px;
-    width: 310px;
-    line-height: 57px;
+.not-only .right-content h2 {
+    width: 320px;
 }
 
-.not-only_right_content p {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 160%;
+.not-only .right-content p {
     color: #CDCDCD;
 }
 
-.not-only__link {
-    background: #F1CDB3;
-    border-radius: 100px;
-    width: 207px;
-    height: 52px;
-    padding: 15px 45px;
-    text-align: center;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 19px;
+
+.not-only .button-full-bg {
     color: #000;
+    padding: 18px 44px;
 }
 
+
 /* About us */
+
 .about-us-container {
     display: flex;
     align-items: center;
@@ -198,19 +247,12 @@ header {
     margin-bottom: 20px;
 }
 
-.about-us-container h2 {
-    color: #545454;
-    line-height: 43px;
-    letter-spacing: 0.06em;
-}
-
-.about-us-container p {
-    margin-top: 25px;
-}
-
-.left-content {
+.about .left-content {
     width: 430px;
-    margin-bottom: 18px;
+    margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 /* Our Friends */
@@ -219,11 +261,6 @@ header {
     padding: 55px 0;
     background: #F6F6F6;
     position: relative;
-}
-
-.our-friends h2 {
-    text-align: center;
-    line-height: 45px;
 }
 
 .carousel-container {
@@ -235,49 +272,54 @@ header {
 }
 
 .carousel-item {
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 28px;
     background: #fafafa;
     padding-bottom: 30px;
     border-radius: 9px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    border: 0px solid var(--button-border-color);
+    scale: 1;
 }
 
-.carousel-item h3 {
+.carousel-item:hover {
+    background: #fff;
+    scale: 1.05;
+    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-item:hover .button-border-bg {
+    border: 2px solid var(--button-orange-bg-hover);
+    background: var(--button-orange-bg-hover);
+}
+
+.carousel-item p.pet-name {
     font-family: 'Georgia';
-    font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 23px;
-    margin: 30px 0;
+    letter-spacing: 0.06em;
 }
 
 .carousel-item a {
-    width: 187px;
-    height: 52px;
-    border: 2px solid #F1CDB3;
-    border-radius: 100px;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17px;
-    text-align: center;
-    padding-top: 15px;
+    padding: 15px 44px;
     color: #000;
+    margin-top: 4px;
+    transition: 0.3s ease;
 }
 
+
+
 .about-get-to-know-link {
-    width: 261px;
-    height: 52px;
-    background: #F1CDB3;
-    border-radius: 100px;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17px;
-    text-align: center;
-    padding-top: 18px;
-    margin: 60px auto;
+    margin-top: 78px;
+}
+
+.about-get-to-know-link .button-full-bg {
+    padding: 15px 45px;
 }
 
 .carousel-navigation {
@@ -292,9 +334,18 @@ header {
     position: relative;
     width: 52px;
     height: 52px;
-    border: 2px solid #F1CDB3;
+    border: 2px solid var(--button-border-color);
     border-radius: 100px;
     display: inline-block;
+    transition: 0.3s ease;
+}
+
+.carousel-navigation .nav-right:hover,
+.carousel-navigation .nav-left:hover,
+.carousel-navigation .nav-right:active,
+.carousel-navigation .nav-left:active {
+    background: var(--button-orange-bg-hover);
+    border: 2px solid var(--button-orange-bg-hover);
 }
 
 .carousel-navigation .nav-right {
@@ -320,6 +371,8 @@ header {
     top: 44%;
     left: 31%;
 }
+
+
 
 /* Help section */
 .help {
@@ -348,10 +401,12 @@ header {
     margin-top: 25px;
 }
 
+.help-upper-row p {
+    margin-top: 27px;
+}
 
 .help-upper-row {
-    margin-top: 60px;
-    margin-bottom: 65px;
+    margin: 60px 0;
 }
 
 /* In addition */
@@ -374,43 +429,36 @@ header {
     gap: 16px;
 }
 
+.in-addition .left-content p {
+    font-family: Georgia;
+    letter-spacing: 0.06em;
+}
+
 .in-addition .addition-description {
     font-style: italic;
-    font-weight: 400;
     font-size: 12px;
+    letter-spacing: 0em !important;
     line-height: 18px;
     color: #B2B2B2;
 }
 
-.left-content h2 {
+.in-addition .left-content h3 {
     width: 300px;
-}
-
-.left-content p {
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    letter-spacing: 0.06em;
 }
 
 .in-addition .right-content {
     padding-right: 30px;
 }
 
-.in-addition .right-content img {
-    margin-top: -32px;
-}
-
 .credit-card {
-    padding: 0px 15px;
+    padding: 0px 14px;
     width: 349px;
     height: 43px;
-    background: #F1CDB3;
+    background: var(--button-orange-bg);
     border-radius: 9px;
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 15px;
 }
 
 .credit-card p {
@@ -418,6 +466,7 @@ header {
     color: #545454;
 }
 
+/* footer */
 footer {
     height: 350px;
     background: url(../images/footer/footer-bg.png) 0 0/ cover no-repeat;
@@ -437,25 +486,24 @@ footer .container {
     height: 100%;
 }
 
-.footer-container h2 {
+.footer-container h3 {
     color: #fff;
 }
 
 .footer-container p {
     color: #F1CDB3;
     font-family: 'Georgia';
-    font-style: normal;
     font-weight: 400;
     font-size: 20px;
     letter-spacing: 0.06em;
 }
 
 .footer-container .row {
-    width: 312px;
+    width: 322px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    margin-right: 13px;
+    gap: 30px;
+
 }
 
 .puppy-row img {
@@ -467,7 +515,7 @@ footer .container {
 .footer-information {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
 }
 
 .footer-container .first-row {
