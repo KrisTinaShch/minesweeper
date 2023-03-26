@@ -28,7 +28,102 @@ header {
     color: inherit;
 }
 
+/* our pets */
 .our-friends {
     margin-top: 120px;
     height: 1342px;
+}
+
+.our-friends.container {
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+}
+
+.our-friends-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 42px;
+    margin-top: 60px;
+}
+
+.our-friends-container.lower-block {
+    margin-top: 30px;
+}
+
+.friends-item {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    background: #fafafa;
+    padding-bottom: 30px;
+    border-radius: 9px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    border: 0px solid var(--button-border-color);
+    scale: 1;
+}
+
+.friends-item:hover {
+    background: #fff;
+    scale: 1.05;
+    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
+}
+
+.friends-item:hover .button-border-bg {
+    border: 2px solid var(--button-orange-bg-hover);
+    background: var(--button-orange-bg-hover);
+}
+
+.friends-item p.pet-name {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.06em;
+}
+
+.friends-item a {
+    padding: 15px 44px;
+    color: #000;
+    margin-top: 4px;
+    transition: 0.3s ease;
+}
+
+/* pagiination */
+.friends-pagination {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pagination-arrows {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    padding-top: 20px;
+}
+
+.pagination-arrows._inactive {
+    border: 2px solid #CDCDCD;
+}
+
+.pagination-arrows._active {
+    border: 2px solid #F1CDB3;
+}
+
+.pagination-arrows._active:hover,
+.pagination-arrows._active:active {
+    border: 2px solid var(--button-orange-bg);
+    background: var(--button-orange-bg);
+}
+
+.pagination-arrows.page-number {
+    background: #F1CDB3;
+    text-decoration: underline;
 }
