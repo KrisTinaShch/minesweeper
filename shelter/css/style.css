@@ -101,6 +101,14 @@ h3 {
     background: var(--button-orange-bg-hover);
 }
 
+header,
+main,
+footer {
+    width: 100%;
+    min-width: 1280px;
+    margin: 0 auto;
+}
+
 /* navigation menu */
 
 header {
@@ -413,6 +421,7 @@ header {
 
 .in-addition {
     height: 462px;
+    background: #F6F6F6;
 }
 
 .in-addition-container {
