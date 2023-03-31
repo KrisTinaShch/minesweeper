@@ -21,9 +21,9 @@ body {
 /* main css */
 
 .container {
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 25px 40px;
+    padding: 30px 40px;
     position: relative;
 }
 
@@ -101,13 +101,7 @@ h3 {
     background: var(--button-orange-bg-hover);
 }
 
-header,
-main,
-footer {
-    width: 100%;
-    min-width: 1280px;
-    margin: 0 auto;
-}
+
 
 /* navigation menu */
 
@@ -119,7 +113,7 @@ header {
 }
 
 .nav-menu__container {
-    width: 1280px;
+    max-width: 1280px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -205,34 +199,40 @@ header {
 /* Not Only Section */
 
 .not-only {
-    height: 908px;
     background: url(../images/notOnlySection/start-screen-gradient-background.png) 0 0/40px 70px, radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%)
 }
 
+
 .not-only__puppy {
+    display: flex;
     position: relative;
     height: 100%;
-    background: url(../images/notOnlySection/start-screen-puppy.png) 93% 100% no-repeat;
+    padding: 99px 40px 0px 40px;
+    gap: 35px;
+    align-items: center;
 }
 
 .not-only .right-content {
     height: 100%;
-    width: 39%;
+    max-width: 39%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 42px;
-    padding-top: 101px;
 }
 
 .not-only .right-content h2 {
-    width: 320px;
+    max-width: 320px;
 }
 
 .not-only .right-content p {
     color: #CDCDCD;
 }
 
+.not-only .left-content img {
+    max-width: 100%;
+    margin-top: 81px;
+}
 
 .not-only .button-full-bg {
     color: #000;
@@ -256,7 +256,7 @@ header {
 }
 
 .about .left-content {
-    width: 430px;
+    max-width: 430px;
     margin-top: -20px;
     display: flex;
     flex-direction: column;
@@ -538,4 +538,100 @@ footer .container {
 
 .footer-container .first-row {
     gap: 40px;
+}
+
+
+@media (max-width:769px) {
+
+    .nav-menu__container {
+        padding: 30px;
+    }
+
+    .not-only__puppy {
+        padding: 25px 40px 0px 40px;
+        flex-direction: column;
+    }
+
+    .not-only .left-content img {
+        max-width: 101%;
+        margin-top: 63px;
+        padding-left: 127px;
+    }
+
+    .not-only .left-content {
+        text-align: right;
+    }
+
+    .not-only .right-content {
+        max-width: 67%;
+        justify-content: flex-start;
+        margin: 0 auto;
+        padding-top: 125px;
+    }
+
+    .not-only .button-full-bg {
+        margin: 0 auto;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    /* about us */
+    .about .left-content {
+        margin-top: 56px;
+    }
+
+    .about-us-container {
+        height: auto;
+        flex-direction: column-reverse;
+        gap: 80px;
+    }
+
+
+}
+
+@media(max-width:425px) {
+
+    /* main styles mobile */
+    h2 {
+        font-size: 25px;
+        letter-spacing: 0.06em;
+        text-align: center;
+        line-height: 32.5px;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /* end main styles mobile */
+    .nav-menu__container {
+        padding: 30px 21px;
+    }
+
+    .not-only .right-content {
+        max-width: 100%;
+    }
+
+    .not-only__puppy {
+        padding: 25px 14px 0px 14px;
+        flex-direction: column;
+    }
+
+    .not-only .right-content h2 {
+        max-width: 259px;
+        margin: 0 auto;
+    }
+
+    .not-only .right-content p {
+        text-align: center;
+    }
+
+    .not-only .left-content img {
+        max-width: 100%;
+        margin-top: 68px;
+        padding-left: 35px;
+    }
 }
