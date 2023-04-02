@@ -128,3 +128,11 @@ header {
     background: #F1CDB3;
     text-decoration: underline;
 }
+
+
+@media(max-width:769px) {
+    
+}
+@media(max-width:425px) {
+
+}
