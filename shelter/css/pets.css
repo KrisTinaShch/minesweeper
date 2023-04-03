@@ -31,7 +31,10 @@ header {
 /* our pets */
 .our-friends {
     margin-top: 120px;
-    height: 1342px;
+}
+
+.our-friends {
+    padding: 48px 0 75px;
 }
 
 .our-friends.container {
@@ -44,12 +47,17 @@ header {
     position: relative;
     display: flex;
     justify-content: center;
-    gap: 42px;
+    gap: 40px;
     margin-top: 60px;
 }
 
 .our-friends-container.lower-block {
     margin-top: 30px;
+}
+
+.nav-right::after,
+.nav-left::after {
+    display: none;
 }
 
 .friends-item {
@@ -78,6 +86,11 @@ header {
     background: var(--button-orange-bg-hover);
 }
 
+.our-friends-container .friends-item img {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 .friends-item p.pet-name {
     font-family: 'Georgia';
     font-weight: 400;
@@ -87,7 +100,8 @@ header {
 }
 
 .friends-item a {
-    padding: 15px 44px;
+    width: 70%;
+    padding: 15px 0px;
     color: #000;
     margin-top: 4px;
     transition: 0.3s ease;
@@ -127,4 +141,80 @@ header {
 .pagination-arrows.page-number {
     background: #F1CDB3;
     text-decoration: underline;
+}
+
+
+@media(max-width:900px) {
+    .our-friends-container {
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width:700px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .menu-burger div {
+        background: #000000;
+    }
+
+    .menu-burger div::before,
+    .menu-burger div::after {
+        background: #000000;
+    }
+}
+
+@media(max-width:769px) {
+    .our-friends-container {
+        gap: 31px 38px;
+        margin-top: 33px;
+    }
+
+    .tablet-display-none {
+        display: none;
+    }
+
+    .friends-pagination {
+        margin-top: 41px;
+    }
+
+    .our-friends {
+        padding: 48px 0 46px;
+    }
+}
+
+@media(max-width:425px) {
+    .mobile-display-none {
+        display: none;
+    }
+
+    .our-friends-container {
+        gap: 31px 38px;
+        margin-top: 42px;
+    }
+
+    .our-friends .container {
+        padding: 35px 0px;
+    }
+
+    .friends-pagination {
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .friends-pagination {
+        margin-top: 14px;
+    }
+
+    .our-friends {
+        padding: 7px 0 12px;
+    }
+
+    .footer-container {
+        padding: 25px 10px 0;
+    }
 }
