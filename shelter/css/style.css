@@ -291,20 +291,23 @@ header {
     position: relative;
 }
 
-.carousel {
+/* .carousel {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 50px;
+    overflow: hidden;
 }
 
 .carousel-container {
     position: relative;
     display: flex;
+    flex: 0 0 calc(100% / 6);
     justify-content: center;
     gap: 93px;
     margin-top: 59px;
     align-items: center;
+
 }
 
 .carousel-item {
@@ -364,6 +367,7 @@ header {
 
 .carousel-navigation {
     margin-top: 60px;
+    z-index: 10;
 }
 
 .carousel-navigation .nav-left,
@@ -404,9 +408,55 @@ header {
     height: 8px;
     top: 44%;
     left: 31%;
+} */
+
+.carousel {
+    position: relative;
+    max-width: 1280px;
+    overflow: hidden;
 }
 
+.carousel-container {
+    display: flex;
+    margin-top: 60px;
+}
 
+.carousel-navigation {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% / 3);
+    text-align: center;
+}
+
+.carousel-spacing div {
+    width: 52px;
+    height: 52px;
+}
+
+.carousel-navigation .carousel-left,
+.carousel-navigation .carousel-right {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    border: 2px solid var(--button-border-color);
+    background: transparent;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-left {
+    left: 0;
+}
+
+.carousel-right {
+    right: 0;
+}
 
 /* Help section */
 .help {
@@ -805,7 +855,7 @@ footer .container {
 
     }
 
-    .no-overflow{
+    .no-overflow {
         overflow-y: hidden;
     }
 
