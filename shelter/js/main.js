@@ -21,6 +21,11 @@ if (menuBurger) {
         menuLink.addEventListener('click', function (e) {
             menuBurger.classList.toggle('_active');
             mobileNavMenu.classList.toggle('_active');
+            if (menuBurger.classList.contains('_active')) {
+                document.querySelector('body').classList.add('no-overflow');
+            } else {
+                document.querySelector('body').classList.remove('no-overflow');
+            }
         });
     });
 
@@ -151,7 +156,9 @@ const cardsData = [
 function createCards() {
     const cardsContainer = document.querySelector('.carousel-container');
 
-    cardsData.forEach((cardData) => {
+    const shuffledCardsData = cardsData.sort(() => Math.random() - 0.5);
+
+    shuffledCardsData.forEach((cardData) => {
         const card = document.createElement('div');
         card.classList.add('carousel-item');
 
@@ -175,4 +182,99 @@ function createCards() {
 
 createCards();
 
+
+// carousel functionality
+let maxVisibleItems = 3;
+const carousel = document.querySelector('.carousel');
+const prevButton = carousel.querySelector('.carousel-left');
+const nextButton = carousel.querySelector('.carousel-right');
+const container = carousel.querySelector('.carousel-container');
+const carouselItems = carousel.querySelectorAll('.carousel-item');
+const itemWidth = carouselItems[0].offsetWidth;
+
+let currentIndex = 0;
+let position = 0;
+function swipeSlider() {
+
+    nextButton.addEventListener('click', () => {
+        currentIndex += maxVisibleItems;
+
+        if (currentIndex == 6) {
+            for (let i = 0; i < 3; i++) {
+                carouselItems[i].remove();
+            }
+            for (let i = 0; i < 3; i++) {
+                container.appendChild(carouselItems[Math.floor(Math.random() * carouselItems.length)]);
+            }
+
+
+            // position = position + 100;
+            container.style.transform = `transition: 0.5s;`;
+            currentIndex = maxVisibleItems;
+        }
+        else {
+            position = position - 100;
+            container.style.transform = `translateX(${position}%)`;
+        }
+
+        // console.log(carouselItems[Math.random() * (carouselItems.length - 1)]);
+    });
+
+
+    prevButton.addEventListener('click', () => {
+        position = position + 100;
+        container.style.transform = `translateX(${position}%)`;
+    });
+}
+
+swipeSlider();
+
+
+
+
+// let carouselItemElement = 0;
+// function initSlider() {
+//     nextButton.addEventListener('click', () => {
+//         currentIndex += maxVisibleItems; // scroll steps
+//         position -= itemWidth * maxVisibleItems; //calc position
+
+//         // console.log(carouselItemElement);
+
+//         if (currentIndex == carouselItems.length - 2) {
+//             if (carouselItemElement < carouselItems.length) {
+//                 let firstSlide = carouselItems[carouselItemElement].cloneNode(true);
+//                 container.appendChild(firstSlide);
+//                 carouselItemElement++;
+//             }
+//             else {
+//                 carouselItemElement = 0;
+//                 let firstSlide = carouselItems[carouselItemElement].cloneNode(true);
+//                 container.appendChild(firstSlide);
+//                 carouselItems[carouselItemElement].remove();
+//                 carouselItemElement++;
+//             }
+//         }
+//         if (currentIndex >= carouselItems.length) {
+//             currentIndex = 0;
+//             position = 0;
+//             if (carouselItemElement > 0) {
+//                 carouselItems[carouselItemElement - 1].remove();
+//             }
+//             else {
+//                 carouselItems[carouselItemElement].remove();
+//             }
+
+//         }
+
+//         container.style.transform = `translateX(${position}px)`;
+
+//     });
+
+
+// }
+
+// initSlider();
+// position -= itemWidth;
+// position = Math.max(position, -itemWidth * (items.length - maxItems));
+// container.style.transform = `translateX(${position}px)`;
 
