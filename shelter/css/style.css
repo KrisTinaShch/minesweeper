@@ -419,6 +419,7 @@ header {
 .carousel-container {
     display: flex;
     margin-top: 60px;
+    transition: 0.3s ease;
 }
 
 .carousel-navigation {

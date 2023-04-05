@@ -47,38 +47,132 @@ if (menuBurger) {
 //     maxScrollItems: 3,
 // }
 
-const carousel = document.querySelector('.carousel');
-const container = carousel.querySelector('.carousel-container');
-const prevButton = carousel.querySelector('.carousel-left');
-const nextButton = carousel.querySelector('.carousel-right');
-const carouselItems = carousel.querySelectorAll('.carousel-item');
-const itemWidth = carouselItems[0].offsetWidth;
+// const carousel = document.querySelector('.carousel');
+// const container = carousel.querySelector('.carousel-container');
+// const prevButton = carousel.querySelector('.carousel-left');
+// const nextButton = carousel.querySelector('.carousel-right');
+// const carouselItems = carousel.querySelectorAll('.carousel-item');
+// const itemWidth = carouselItems[0].offsetWidth;
 
-let currentIndex = 1;
-let position = 0;
-let maxVisibleItems = 3;
+// let currentIndex = 0;
+// let position = 0;
+// let maxVisibleItems = 3;
+// let carouselItemElement = 0;
+// function initSlider() {
+//     nextButton.addEventListener('click', () => {
+//         currentIndex += maxVisibleItems;
+//         position -= itemWidth * maxVisibleItems;
 
-// добавляем копию первого слайда в конец списка слайдов
-container.appendChild(carouselItems[0].cloneNode(true));
 
-function initSlider() {
+//         console.log(carouselItemElement);
+//         if (currentIndex == carouselItems.length - 2) {
+//             if (carouselItemElement < carouselItems.length) {
+//                 let firstSlide = carouselItems[carouselItemElement].cloneNode(true);
+//                 container.appendChild(firstSlide);
+//                 carouselItemElement++;
+//             }
+//             else {
+//                 carouselItemElement = 0;
+//                 let firstSlide = carouselItems[carouselItemElement].cloneNode(true);
+//                 container.appendChild(firstSlide);
+//                 carouselItems[carouselItemElement].remove();
+//                 carouselItemElement++;
+//             }
+//         }
+//         if (currentIndex >= carouselItems.length) {
+//             currentIndex = 0;
+//             position = 0;
+//             if (carouselItemElement > 0) {
+//                 carouselItems[carouselItemElement - 1].remove();
+//             }
+//             else {
+//                 carouselItems[carouselItemElement].remove();
+//             }
 
-    nextButton.addEventListener('click', () => {
-        currentIndex += maxVisibleItems;
-        position = position - itemWidth * maxVisibleItems;
+//         }
 
-        // если достигнут последний слайд, переходим на первый слайд
-        if (currentIndex > carouselItems.length) {
-            currentIndex = 1;
-            position = 0;
-        }
+//         container.style.transform = `translateX(${position}px)`;
 
-        container.style.transition = `transform 500ms ease-in-out`;
-        container.style.transform = `translateX(${position}px)`;
-    });
-}
+//     });
 
-initSlider();
+
+// }
+
+// initSlider();
 // position -= itemWidth;
 // position = Math.max(position, -itemWidth * (items.length - maxItems));
 // container.style.transform = `translateX(${position}px)`;
+
+// cards creating
+
+const cardsData = [
+    {
+        image: 'images/ourFriendsSection/pets-katrine.png',
+        name: 'Katrine',
+        link: 'Learn more' // 1 
+    },
+    {
+        image: 'images/ourFriendsSection/pets-jennifer.png',
+        name: 'Jennifer',
+        link: 'Learn more' // 2
+    },
+    {
+        image: 'images/ourFriendsSection/pets-woody.png',
+        name: 'Woody',
+        link: 'Learn more' // 3
+    },
+    {
+        image: 'images/ourFriendsSection/pets-sofia.png',
+        name: 'Sophia',
+        link: 'Learn more' // 4
+    },
+    {
+        image: 'images/ourFriendsSection/pets-timmy.png',
+        name: 'Timmy',
+        link: 'Learn more' // 5
+    },
+    {
+        image: 'images/ourFriendsSection/pets-freddie.png',
+        name: 'Freddie',
+        link: 'Learn more' // 6
+    },
+    {
+        image: 'images/ourFriendsSection/pets-charly.png',
+        name: 'Charly',
+        link: 'Learn more' // 7
+    },
+    {
+        image: 'images/ourFriendsSection/pets-scarlet.png',
+        name: 'Scarlett',
+        link: 'Learn more' // 8
+    },
+];
+
+function createCards() {
+    const cardsContainer = document.querySelector('.carousel-container');
+
+    cardsData.forEach((cardData) => {
+        const card = document.createElement('div');
+        card.classList.add('carousel-item');
+
+        const cardImage = document.createElement('img');
+        cardImage.setAttribute('src', `${cardData.image}`);
+
+        const petName = document.createElement('p');
+        petName.classList.add('pet-name');
+        petName.textContent = cardData.name;
+
+        const cardLink = document.createElement('a');
+        cardLink.classList.add('button-border-bg');
+        cardLink.textContent = cardData.name;
+
+        card.appendChild(cardImage);
+        card.appendChild(petName);
+        card.appendChild(cardLink);
+        cardsContainer.appendChild(card);
+    });
+}
+
+createCards();
+
+
