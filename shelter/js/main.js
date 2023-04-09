@@ -153,77 +153,122 @@ const cardsData = [
     },
 ];
 
+let maxVisibleItems;
+if (window.innerWidth >= 1280) {
+    maxVisibleItems = 3;
+}
+else if (window.innerWidth >= 768) {
+    maxVisibleItems = 2;
+}
+else if (window.innerWidth >= 450) {
+    maxVisibleItems = 1;
+}
+
+let currentArray = [];
+const cardsContainer = document.querySelector('.carousel-container');
+
 function createCards() {
-    const cardsContainer = document.querySelector('.carousel-container');
+    // const shuffledCardsData = cardsData.sort(() => Math.random() - 0.5);
+    let copyCardsData = Array.from(cardsData);
+    for (let i = 0; i < maxVisibleItems; i++) {
 
-    const shuffledCardsData = cardsData.sort(() => Math.random() - 0.5);
-
-    shuffledCardsData.forEach((cardData) => {
+        let randomIndex = Math.floor(Math.random() * copyCardsData.length);
         const card = document.createElement('div');
         card.classList.add('carousel-item');
 
         const cardImage = document.createElement('img');
-        cardImage.setAttribute('src', `${cardData.image}`);
+        cardImage.setAttribute('src', `${copyCardsData[randomIndex].image}`);
 
         const petName = document.createElement('p');
         petName.classList.add('pet-name');
-        petName.textContent = cardData.name;
+        petName.textContent = copyCardsData[randomIndex].name;
 
         const cardLink = document.createElement('a');
         cardLink.classList.add('button-border-bg');
-        cardLink.textContent = cardData.name;
+        cardLink.textContent = copyCardsData[randomIndex].link;
 
         card.appendChild(cardImage);
         card.appendChild(petName);
         card.appendChild(cardLink);
         cardsContainer.appendChild(card);
-    });
+
+        copyCardsData.splice(randomIndex, 1);
+
+    }
+
 }
 
 createCards();
 
-
 // carousel functionality
-let maxVisibleItems = 3;
+
 const carousel = document.querySelector('.carousel');
 const prevButton = carousel.querySelector('.carousel-left');
 const nextButton = carousel.querySelector('.carousel-right');
 const container = carousel.querySelector('.carousel-container');
-const carouselItems = carousel.querySelectorAll('.carousel-item');
+let carouselItems = carousel.querySelectorAll('.carousel-item');
 const itemWidth = carouselItems[0].offsetWidth;
 
 let currentIndex = 0;
 let position = 0;
+let currentPrev = 0;
+let clickCounts = 0;
+let safeElemRight = [];
+let safeElemLeft = [];
+
+let clicks = 0;
 function swipeSlider() {
 
+
+
     nextButton.addEventListener('click', () => {
-        currentIndex += maxVisibleItems;
 
-        if (currentIndex == 6) {
-            for (let i = 0; i < 3; i++) {
-                carouselItems[i].remove();
-            }
-            for (let i = 0; i < 3; i++) {
-                container.appendChild(carouselItems[Math.floor(Math.random() * carouselItems.length)]);
-            }
+        current = carousel.querySelectorAll('.carousel-item');
+        safeElemLeft = current;
 
 
-            // position = position + 100;
-            container.style.transform = `transition: 0.5s;`;
-            currentIndex = maxVisibleItems;
+        if (safeElemRight[0] == undefined) {
+            createCards();
+            current.forEach(i => {
+                i.remove();
+            });
         }
         else {
-            position = position - 100;
-            container.style.transform = `translateX(${position}%)`;
+
+            current.forEach(i => {
+                i.remove();
+            });
+
+            safeElemRight.forEach(i => {
+                container.append(i);
+            });
+            safeElemRight = [];
         }
 
-        // console.log(carouselItems[Math.random() * (carouselItems.length - 1)]);
     });
 
 
     prevButton.addEventListener('click', () => {
-        position = position + 100;
-        container.style.transform = `translateX(${position}%)`;
+        current = carousel.querySelectorAll('.carousel-item');
+        safeElemRight = current;
+
+        if (safeElemLeft[0] == undefined) {
+            createCards();
+            current.forEach(i => {
+                i.remove();
+            });
+        } else {
+
+            current.forEach(i => {
+                i.remove();
+            });
+            safeElemLeft.forEach(i => {
+                container.append(i);
+            });
+            safeElemLeft = [];
+        }
+
+
     });
 }
 
