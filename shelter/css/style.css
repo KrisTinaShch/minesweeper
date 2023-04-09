@@ -109,6 +109,7 @@ h3 {
     display: block !important;
 }
 
+
 /* navigation menu */
 
 header {
@@ -413,7 +414,7 @@ header {
 .carousel {
     position: relative;
     max-width: 1280px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .carousel-container {
@@ -623,7 +624,116 @@ footer .container {
     gap: 40px;
 }
 
+/* modal */
+.modal-item {
+    width: 80%;
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+    left: 10%;
+    border-radius: 20px;
+}
 
+.modal-item img {
+    border-radius: 20px;
+    width: 200%;
+    height: fit-content;
+}
+
+
+.modal-close {
+    background: url(../images/closeButon.png) center no-repeat;
+    position: absolute;
+    top: -85px;
+    right: 0;
+    font-size: 25px;
+    width: 52px;
+    height: 52px;
+    border: 2px solid #F1CDB3;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-item-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 45px;
+}
+
+.pet-description-modal {
+    margin-top: 40px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 110%;
+    /* or 17px */
+
+    letter-spacing: 0.06em;
+}
+
+.pet-name-modal,
+.pet-type-modal,
+.pet-description-modal {
+    color: #000;
+    font-family: 'Georgia';
+}
+
+.pet-type-modal {
+
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.pet-ul-modal {
+
+    font-size: 15px;
+    margin-top: 68px;
+}
+
+.pet-ul-modal li {
+    position: relative;
+    margin-bottom: 10px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-size: 15px;
+    line-height: 110%;
+    /* identical to box height, or 17px */
+
+    letter-spacing: 0.06em;
+}
+
+.pet-ul-modal li::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 7px;
+    width: 4px;
+    height: 4px;
+    background-color: #F1CDB3;
+    border-radius: 50%;
+}
+
+.overlay-modal.active {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
 
 @media (max-width:1100px) {
     .footer-container {
@@ -656,6 +766,23 @@ footer .container {
 
     .footer-container .row {
         width: auto;
+    }
+
+    .modal-item img {
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+    .modal-item-content {
+        padding: 0 20px;
+    }
+
+    .pet-ul-modal {
+        margin-top: 25px;
+    }
+
+    .pet-description-modal {
+        margin-top: 0px;
     }
 }
 
