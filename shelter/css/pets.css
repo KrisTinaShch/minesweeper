@@ -28,6 +28,73 @@ header {
     color: inherit;
 }
 
+.nav-menu__list {
+    margin-top: -3px;
+    position: relative;
+    display: flex;
+    gap: 36px;
+}
+
+.nav-menu__list li {
+    position: relative;
+}
+
+.nav-menu__list li._active-page>a {
+    color: #fff;
+}
+
+.nav-menu__list li>a {
+    font-size: 15px;
+    color: #CDCDCD;
+    position: relative;
+}
+
+
+.nav-menu__list li._active-page::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: var(--button-orange-bg);
+    bottom: -7px;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+.nav-menu__list li::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background: var(--button-orange-bg);
+    bottom: -7px;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+.nav-menu__list li:active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: var(--button-orange-bg);
+    bottom: -7px;
+    left: 0;
+}
+
+.nav-menu__list li:hover a {
+    color: #fff;
+}
+
+
+.menu-burger {
+    display: none;
+}
+
+.overlay {
+    display: none;
+}
+
 /* our pets */
 .our-friends {
     margin-top: 120px;
@@ -39,6 +106,7 @@ header {
 
 .our-friends.container {
     display: flex;
+
     gap: 0px;
     flex-direction: column;
 }
@@ -46,9 +114,11 @@ header {
 .our-friends-container {
     position: relative;
     display: flex;
+    flex: 0 0 calc(100% / 4);
     justify-content: center;
     gap: 40px;
     margin-top: 60px;
+    flex-wrap: wrap;
 }
 
 .our-friends-container.lower-block {
@@ -61,7 +131,6 @@ header {
 }
 
 .friends-item {
-    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,6 +212,23 @@ header {
     text-decoration: underline;
 }
 
+.no-overflow {
+    overflow-y: hidden;
+}
+
+.button-border-bg {
+    font-family: 'Georgia';
+    font-weight: 400;
+    font-size: 17px;
+    text-align: center;
+    width: fit-content;
+    border: 2px solid var(--button-border-color);
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    transition: 0.3s ease;
+    padding: 10px 20px;
+    background: transparent;
+}
 
 @media(max-width:900px) {
     .our-friends-container {
@@ -151,8 +237,12 @@ header {
 }
 
 @media(max-width:700px) {
-    .nav-menu {
-        display: none;
+    .menu-burger {
+        display: block;
+    }
+
+    .nav-menu__list li>a {
+        font-size: 2.3em;
     }
 
     .menu-burger div {
@@ -162,6 +252,32 @@ header {
     .menu-burger div::before,
     .menu-burger div::after {
         background: #000000;
+    }
+
+    .modal-item img {
+        display: none;
+    }
+
+    .nav-menu {
+        position: fixed;
+        height: 100%;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        background: #292929;
+        transition: 0.3s ease-in-out;
+        z-index: 10;
+    }
+
+    .nav-menu._active {
+        right: 0;
+    }
+
+    .nav-menu__list {
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }
 
