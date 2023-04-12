@@ -276,6 +276,8 @@ function modalWindow() {
                     const modal = document.createElement('div');
                     modal.classList.add('modal-item');
 
+                    const modalContainer = document.createElement('div');
+                    modalContainer.classList.add('modal-container');
 
                     modalButton = document.createElement('div');
                     modalButton.classList.add('modal-close');
@@ -314,7 +316,7 @@ function modalWindow() {
                     petParasites.classList.add('pet-age-parasites');
                     petParasites.innerHTML = `<b>Parasites</b>: ${cardItem.parasites}`;
 
-                    modalDesk.appendChild(petName);
+                   modalDesk.appendChild(petName);
                     modalDesk.appendChild(petType);
                     modalDesk.appendChild(petDesk);
 
@@ -325,14 +327,17 @@ function modalWindow() {
                     petUl.appendChild(petParasites);
 
                     modalDesk.appendChild(petUl);
-                    modal.appendChild(modalDesk);
-                    modal.appendChild(modalButton);
 
+                    modalContainer.appendChild(modalDesk);
+                  
+
+                    modal.appendChild(modalContainer);
+                    modal.appendChild(modalButton);
 
                     if (maxVisibleItemsPets <= 8 && maxVisibleItemsPets > 3) {
                         const modalImage = document.createElement('img');
                         modalImage.setAttribute('src', `${cardItem.image}`);
-                        modal.appendChild(modalImage);
+                        modalContainer.appendChild(modalImage);
                     }
                     else if (maxVisibleItemsPets < 3) {
 
