@@ -339,23 +339,30 @@ function modalWindow() {
                     modalButton.addEventListener("click", function (e) {
                         carousel.removeChild(modal);
                         overlayModal.classList.remove('active');
+                        document.querySelector('body').classList.remove('no-overflow');
                     })
                     carousel.appendChild(modal);
                 }
                 overlayModal.classList.add('active');
+                document.querySelector('body').classList.add('no-overflow');
             })
         })
     });
 
     overlayModal.addEventListener("click", function (e) {
         overlayModal.classList.remove('active');
+        document.querySelector('body').classList.remove('no-overflow');
         const modal = document.querySelector('.modal-item');
         if (modal && modal.parentNode === carousel) {
             carousel.removeChild(modal);
         }
     });
 
-
+    if (overlayModal.classList.contains('active')) {
+        document.querySelector('body').classList.add('no-overflow');
+    } else {
+        document.querySelector('body').classList.remove('no-overflow');
+    }
 
 
 }

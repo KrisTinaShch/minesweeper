@@ -112,7 +112,9 @@ h3 {
 .onlydesktop {
     display: block !important;
 }
-
+.no-overflow {
+    overflow-y: hidden;
+}
 
 /* navigation menu */
 
@@ -970,9 +972,7 @@ footer .container {
 
     }
 
-    .no-overflow {
-        overflow-y: hidden;
-    }
+   
 
 }
 
