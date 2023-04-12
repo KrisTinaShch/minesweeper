@@ -793,7 +793,9 @@ footer .container {
 
     }
 
-
+    .modal-item {
+        width: 93%;
+    }
 
 }
 
@@ -1014,7 +1016,12 @@ footer .container {
         width: 60% !important;
     }
 
-   
+    .modal-item img {
+        display: none;
+    }
+    .modal-item-content {
+        max-width: 100%;
+    }
 }
 
 @media(max-width:425px) {
@@ -1116,6 +1123,14 @@ footer .container {
 
     .carousel-navigation {
         margin-top: 0px;
+        bottom: -7%;
+        top: auto;
+    }
+    .carousel-right {
+        right: 21%;
+    }
+    .carousel-left {
+        left: 21%;
     }
 
     .carousel-navigation .nav-left,
@@ -1134,6 +1149,9 @@ footer .container {
     .carousel-item {
         flex: 0 0 100%;
     }
+    .carousel-item {
+        gap: 35px;
+    }
 
     .our-friends {
         padding: 6px 0;
@@ -1142,7 +1160,7 @@ footer .container {
     }
 
     .about-get-to-know-link {
-        margin-top: 68px;
+        margin-top: 143px;
         padding-bottom: 21px;
     }
 
