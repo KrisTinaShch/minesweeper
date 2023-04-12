@@ -78,6 +78,8 @@ h3 {
     font-size: 17px;
     letter-spacing: 0.06em;
     transition: 0.3s ease;
+    margin-top: 20px;
+    
 }
 
 .button-full-bg:hover {
@@ -94,6 +96,8 @@ h3 {
     border-radius: 100px;
     letter-spacing: 0.06em;
     transition: 0.3s ease;
+    padding: 10px 22px;
+    margin-bottom: 20px;
 }
 
 .button-border-bg:hover {
@@ -292,38 +296,8 @@ header {
     position: relative;
 }
 
-/* .carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    overflow: hidden;
-}
 
-.carousel-container {
-    position: relative;
-    display: flex;
-    flex: 0 0 calc(100% / 6);
-    justify-content: center;
-    gap: 93px;
-    margin-top: 59px;
-    align-items: center;
 
-}
-
-.carousel-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    background: #fafafa;
-    padding-bottom: 30px;
-    border-radius: 9px;
-    transition: 0.3s ease;
-    cursor: pointer;
-    border: 0px solid var(--button-border-color);
-    scale: 1;
-}
 
 .carousel-item:hover {
     background: #fff;
@@ -336,13 +310,6 @@ header {
     background: var(--button-orange-bg-hover);
 }
 
-.carousel-item p.pet-name {
-    font-family: 'Georgia';
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
-    letter-spacing: 0.06em;
-}
 
 .carousel-item a {
     padding: 15px 0;
@@ -358,7 +325,7 @@ header {
 }
 
 .about-get-to-know-link {
-    margin-top: 78px;
+    margin-top: 88px;
     padding-bottom: 40px;
 }
 
@@ -409,7 +376,7 @@ header {
     height: 8px;
     top: 44%;
     left: 31%;
-} */
+} 
 
 .carousel {
     position: relative;
@@ -422,17 +389,24 @@ header {
     justify-content: center;
     margin-top: 60px;
     transition: 0.3s ease;
+    gap: 92px;
 }
-
 .carousel-navigation {
     position: absolute;
     width: 100%;
-    top: 50%;
+    top: 32%;
 }
 
 .carousel-item {
     flex: 0 0 calc(100% / 3);
     text-align: center;
+    display: flex;
+    gap: 27px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 270px;
+    transition: 0.3s ease;
+    border-radius: 7px;
 }
 
 .carousel-spacing div {
@@ -460,7 +434,13 @@ header {
 .carousel-right {
     right: 0;
 }
-
+.pet-name{
+    font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+letter-spacing: 0.06em;
+}
 /* Help section */
 .help {
     padding: 55px 0 10px 0;
@@ -1028,7 +1008,7 @@ footer .container {
         width: 60% !important;
     }
 
-
+   
 }
 
 @media(max-width:425px) {
@@ -1143,6 +1123,10 @@ footer .container {
 
     .about-us-container {
         margin-bottom: 0px;
+    }
+
+    .carousel-item {
+        flex: 0 0 100%;
     }
 
     .our-friends {
