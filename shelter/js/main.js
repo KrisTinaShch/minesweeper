@@ -153,10 +153,11 @@ if (window.innerWidth >= 1280) {
 else if (window.innerWidth >= 768) {
     maxVisibleItems = 2;
 }
-else if (window.innerWidth >= 450) {
+else{
     maxVisibleItems = 1;
 }
 
+  
 let currentArray = [];
 const cardsContainer = document.querySelector('.carousel-container');
 
@@ -191,7 +192,6 @@ function createCards() {
 }
 
 createCards();
-
 // carousel functionality
 
 const carousel = document.querySelector('.carousel');
