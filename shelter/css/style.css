@@ -427,6 +427,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s ease;
 }
 
 .carousel-left {
@@ -436,6 +437,11 @@ header {
 .carousel-right {
     right: 0;
 }
+
+.carousel-navigation .carousel-left:hover,
+    .carousel-navigation .carousel-right:hover{
+        background: #F1CDB3;
+    }
 .pet-name{
     font-family: 'Georgia';
 font-style: normal;
@@ -646,6 +652,12 @@ footer .container {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s ease;
+}
+
+.modal-close:hover{
+    background:#F1CDB3 url(../images/closeButon.png) center no-repeat ;
+    cursor: pointer;
 }
 
 .modal-item-content {
@@ -1136,7 +1148,11 @@ footer .container {
     .carousel-navigation .nav-left,
     .carousel-navigation .nav-right {
         margin: -10px 40px;
+        transition: 0.3s ease;
     }
+
+    
+    
 
     .carousel {
         flex-direction: column;
