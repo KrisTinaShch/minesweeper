@@ -272,6 +272,9 @@ function modalWindow() {
                     const modal = document.createElement('div');
                     modal.classList.add('modal-item');
 
+                    const modalContainer = document.createElement('div');
+                    modalContainer.classList.add('modal-container');
+
                     modalButton = document.createElement('div');
                     modalButton.classList.add('modal-close');
 
@@ -320,14 +323,18 @@ function modalWindow() {
                     petUl.appendChild(petParasites);
 
                     modalDesk.appendChild(petUl);
-                    modal.appendChild(modalDesk);
+
+                    modalContainer.appendChild(modalDesk);
+                  
+
+                    modal.appendChild(modalContainer);
                     modal.appendChild(modalButton);
 
 
                     if (maxVisibleItems == 3 || maxVisibleItems == 2) {
                         const modalImage = document.createElement('img');
                         modalImage.setAttribute('src', `${cardItem.image}`);
-                        modal.appendChild(modalImage);
+                        modalContainer.appendChild(modalImage);
                     }
                     modalButton.addEventListener("click", function (e) {
                         carousel.removeChild(modal);

@@ -606,22 +606,27 @@ footer .container {
 
 /* modal */
 .modal-item {
-    width: 80%;
-    background: #fff;
-    position: absolute;
+    width: 57%;
+    min-height: 50%;
+    background: rgb(255, 255, 255);
     z-index: 10;
-    top: 0;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-container{
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     gap: 10px;
-    left: 10%;
-    border-radius: 20px;
+    height: 100%;
 }
-
 .modal-item img {
     border-radius: 20px;
-    width: 200%;
+    width: 100%;
     height: fit-content;
 }
 
@@ -645,7 +650,8 @@ footer .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 45px;
+    padding: 0 45px;
+    max-width: 50%;
 }
 
 .pet-description-modal {
