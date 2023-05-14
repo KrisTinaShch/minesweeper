@@ -24,7 +24,6 @@ class NormalBoard {
       const col = Math.floor(Math.random() * this.height);
       bombs.push([row, col]);
     }
-    console.log(bombs);
     return bombs;
   }
 
@@ -44,21 +43,26 @@ class NormalBoard {
       for (let j = 0; j < this.height; j += 1) {
         const fieldCell = document.createElement('div');
         fieldCell.classList.add('field-cell');
-        fieldCell.innerHTML = cellsArray[i][j];
         fieldCell.id = `${i}-${j}`;
-        console.log(`${[i]} ${[j]} -cell`);
-        console.log(`${bombsArray[[j][i]]} - bomb`);
-        if (cellsArray[i][j] === bombsArray[i][j]) {
-          fieldCell.classList.add('field-bomb');
-          fieldCell.innerHTML = 'X';
+        for (let k = 0; k < bombsArray.length; k += 1) {
+          const bombCoords = bombsArray[k];
+          if (i === bombCoords[0] && j === bombCoords[1]) {
+            fieldCell.classList.add('field-bomb');
+            cellsArray[i].splice(j, 1, 'boom');
+            fieldCell.innerHTML = 'X';
+          }
         }
         fieldRow.appendChild(fieldCell);
       }
       mineField.appendChild(fieldRow);
-      container.appendChild(mineField);
     }
+    console.log(cellsArray);
+    container.appendChild(mineField);
     document.body.appendChild(container);
   }
+  // updateCellValues(cellsArray, bombsArray) {
+
+  // }
 }
 
 const normalBoard = new NormalBoard(10, 10, 10);
