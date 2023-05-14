@@ -1,6 +1,43 @@
 @font-face {
-    font-family: 'VT323';
-    src: url('assets/fonts/VT323/VT323-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'VT323';
+  src: url('assets/fonts/VT323/VT323-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'VT323', sans-serif;
+  background: #D9D9D9;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.field-row {
+  display: flex;
+}
+
+.field-cell {
+  width: 50px;
+  height: 50px;
+  background: #001B3A;
+  color: #fff;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.field-bomb {
+  background: #FF0000;
 }
