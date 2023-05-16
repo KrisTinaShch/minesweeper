@@ -11,7 +11,7 @@ class NormalBoard {
     for (let i = 0; i < this.width; i += 1) {
       cells.push([]);
       for (let j = 0; j < this.height; j += 1) {
-        cells[i].push(j);
+        cells[i].push(' ');
       }
     }
     return cells;
@@ -22,9 +22,39 @@ class NormalBoard {
     while (bombs.length < this.bombCount) {
       const row = Math.floor(Math.random() * this.width);
       const col = Math.floor(Math.random() * this.height);
-      bombs.push([row, col]);
+
+      const isDuplicate = bombs.some(([r, c]) => r === row && c === col);
+      if (!isDuplicate) {
+        bombs.push([row, col]);
+      }
     }
     return bombs;
+  }
+
+  updateCellsArray(cellsArray) {
+    for (let i = 0; i < this.width; i += 1) {
+      for (let j = 0; j < this.height; j += 1) {
+        if (cellsArray[i][j] === 'x') {
+          if (j + 1 < cellsArray[i].length && cellsArray[i][j + 1] !== 'x') {
+            cellsArray[i].splice(j + 1, 1, '0');
+            if (i + 1 <= 9 && cellsArray[i + 1][j] !== 'x') {
+              cellsArray[i + 1].splice(j - 1, 1, '0');
+              cellsArray[i + 1].splice(j + 1, 1, '0');
+              cellsArray[i + 1].splice(j, 1, '0');
+            }
+          }
+          if (j - 1 >= 0 && cellsArray[i][j - 1] !== 'x') {
+            cellsArray[i].splice(j - 1, 1, '0');
+            if (i - 1 >= 0 && cellsArray[i - 1][j] !== 'x') {
+              cellsArray[i - 1].splice(j - 1, 1, '0');
+              cellsArray[i - 1].splice(j + 1, 1, '0');
+              cellsArray[i - 1].splice(j, 1, '0');
+            }
+          }
+        }
+      }
+    }
+    return cellsArray;
   }
 
   generateCellsCover() {
@@ -48,21 +78,19 @@ class NormalBoard {
           const bombCoords = bombsArray[k];
           if (i === bombCoords[0] && j === bombCoords[1]) {
             fieldCell.classList.add('field-bomb');
-            cellsArray[i].splice(j, 1, 'boom');
-            fieldCell.innerHTML = 'X';
+            cellsArray[i].splice(j, 1, 'x');
           }
         }
+
+        fieldCell.innerHTML = cellsArray[i][j];
         fieldRow.appendChild(fieldCell);
       }
       mineField.appendChild(fieldRow);
     }
-    console.log(cellsArray);
     container.appendChild(mineField);
     document.body.appendChild(container);
+    console.log(cellsArray);
   }
-  // updateCellValues(cellsArray, bombsArray) {
-
-  // }
 }
 
 const normalBoard = new NormalBoard(10, 10, 10);
