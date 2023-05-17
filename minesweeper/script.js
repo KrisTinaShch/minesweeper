@@ -1,9 +1,10 @@
 // Creating a normal board 10x10
 class NormalBoard {
-  constructor(width, height, bombCount) {
+  constructor(width, height, bombCount, number = 0) {
     this.width = width;
     this.height = height;
     this.bombCount = bombCount;
+    this.number = number;
   }
 
   generateCells() {
@@ -11,7 +12,7 @@ class NormalBoard {
     for (let i = 0; i < this.width; i += 1) {
       cells.push([]);
       for (let j = 0; j < this.height; j += 1) {
-        cells[i].push(' ');
+        cells[i].push(this.number);
       }
     }
     return cells;
@@ -31,25 +32,16 @@ class NormalBoard {
     return bombs;
   }
 
-  updateCellsArray(cellsArray) {
-    for (let i = 0; i < this.width; i += 1) {
-      for (let j = 0; j < this.height; j += 1) {
-        if (cellsArray[i][j] === 'x') {
-          if (j + 1 < cellsArray[i].length && cellsArray[i][j + 1] !== 'x') {
-            cellsArray[i].splice(j + 1, 1, '0');
-            if (i + 1 <= 9 && cellsArray[i + 1][j] !== 'x') {
-              cellsArray[i + 1].splice(j - 1, 1, '0');
-              cellsArray[i + 1].splice(j + 1, 1, '0');
-              cellsArray[i + 1].splice(j, 1, '0');
-            }
-          }
-          if (j - 1 >= 0 && cellsArray[i][j - 1] !== 'x') {
-            cellsArray[i].splice(j - 1, 1, '0');
-            if (i - 1 >= 0 && cellsArray[i - 1][j] !== 'x') {
-              cellsArray[i - 1].splice(j - 1, 1, '0');
-              cellsArray[i - 1].splice(j + 1, 1, '0');
-              cellsArray[i - 1].splice(j, 1, '0');
-            }
+  updateCellsArray(cellsArray, bombCoords) {
+    const i = bombCoords[0];
+    const j = bombCoords[1];
+    for (let k = i - 1; k < i + 2; k += 1) {
+      for (let l = j - 1; l < j + 2; l += 1) {
+        if (k >= 0 && l >= 0 && k < 10 && cellsArray[k][l] !== 'x' && k < cellsArray.length && l < cellsArray[k].length) {
+          if (typeof cellsArray[k][l] !== 'number') {
+            cellsArray[k][l] = 1;
+          } else {
+            cellsArray[k][l] += 1;
           }
         }
       }
@@ -66,7 +58,7 @@ class NormalBoard {
 
     const cellsArray = this.generateCells();
     const bombsArray = this.generateBombs();
-
+    console.log(bombsArray);
     for (let i = 0; i < this.width; i += 1) {
       const fieldRow = document.createElement('div');
       fieldRow.classList.add('field-row');
@@ -79,7 +71,9 @@ class NormalBoard {
           if (i === bombCoords[0] && j === bombCoords[1]) {
             fieldCell.classList.add('field-bomb');
             cellsArray[i].splice(j, 1, 'x');
+            this.updateCellsArray(cellsArray, bombCoords);
           }
+          // console.log(bombCoords);
         }
 
         fieldCell.innerHTML = cellsArray[i][j];
