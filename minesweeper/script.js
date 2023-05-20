@@ -1,22 +1,13 @@
 // Creating a normal board 10x10
 class NormalBoard {
-  constructor(width, height, bombCount, number = 0) {
+  constructor(width, height, bombCount, number = 0, bombCoords = []) {
     this.width = width;
     this.height = height;
     this.bombCount = bombCount;
     this.number = number;
+    this.bombCoords = bombCoords;
   }
 
-  generateCells() {
-    const cells = [];
-    for (let i = 0; i < this.width; i += 1) {
-      cells.push([]);
-      for (let j = 0; j < this.height; j += 1) {
-        cells[i].push(this.number);
-      }
-    }
-    return cells;
-  }
 
   generateBombs() {
     const bombs = [];
@@ -32,21 +23,34 @@ class NormalBoard {
     return bombs;
   }
 
-  updateCellsArray(cellsArray, bombCoords) {
-    const i = bombCoords[0];
-    const j = bombCoords[1];
-    for (let k = i - 1; k < i + 2; k += 1) {
-      for (let l = j - 1; l < j + 2; l += 1) {
-        if (k >= 0 && l >= 0 && k < 10 && cellsArray[k][l] !== 'x' && k < cellsArray.length && l < cellsArray[k].length) {
-          if (typeof cellsArray[k][l] !== 'number') {
-            cellsArray[k][l] = 1;
-          } else {
-            cellsArray[k][l] += 1;
+  updateCellsArray() {
+    const cells = [];
+    const bombCoords = this.generateBombs();
+    this.bombCoords = bombCoords;
+
+    for (let i = 0; i < this.width; i += 1) {
+      cells.push([]);
+      for (let j = 0; j < this.height; j += 1) {
+        const isBomb = bombCoords.some(([row, col]) => i === row && j === col);
+        cells[i].push(isBomb ? 'x' : ' ');
+      }
+    }
+
+    bombCoords.forEach(([i, j]) => {
+      for (let k = i - 1; k < i + 2; k += 1) {
+        for (let l = j - 1; l < j + 2; l += 1) {
+          if (k >= 0 && l >= 0 && k < 10 && cells[k][l] !== 'x' && k < cells.length && l < cells[k].length) {
+            if (typeof cells[k][l] !== 'number') {
+              cells[k][l] = 1;
+            } else {
+              cells[k][l] += 1;
+            }
           }
         }
       }
-    }
-    return cellsArray;
+    });
+
+    return cells;
   }
 
   generateCellsCover() {
@@ -55,37 +59,58 @@ class NormalBoard {
 
     const mineField = document.createElement('div');
     mineField.classList.add('mine-field');
-
-    const cellsArray = this.generateCells();
-    const bombsArray = this.generateBombs();
-    console.log(bombsArray);
+    const cells = this.updateCellsArray();
     for (let i = 0; i < this.width; i += 1) {
       const fieldRow = document.createElement('div');
       fieldRow.classList.add('field-row');
       for (let j = 0; j < this.height; j += 1) {
-        const fieldCell = document.createElement('div');
-        fieldCell.classList.add('field-cell');
-        fieldCell.id = `${i}-${j}`;
-        for (let k = 0; k < bombsArray.length; k += 1) {
-          const bombCoords = bombsArray[k];
-          if (i === bombCoords[0] && j === bombCoords[1]) {
-            fieldCell.classList.add('field-bomb');
-            cellsArray[i].splice(j, 1, 'x');
-            this.updateCellsArray(cellsArray, bombCoords);
-          }
-          // console.log(bombCoords);
+        const fieldCells = document.createElement('div');
+        fieldCells.classList.add('field-cell');
+        fieldCells.id = `[${i}, ${j}]`;
+        fieldCells.innerHTML = cells[i][j];
+        if (cells[i][j] === 'x') {
+          fieldCells.classList.add('field-bomb');
         }
-
-        fieldCell.innerHTML = cellsArray[i][j];
-        fieldRow.appendChild(fieldCell);
+        fieldRow.appendChild(fieldCells);
       }
       mineField.appendChild(fieldRow);
     }
     container.appendChild(mineField);
     document.body.appendChild(container);
-    console.log(cellsArray);
+
+    this.generateCover();
+  }
+
+  generateCover() {
+    let clicksCounter = 0;
+    const fieldCells = document.querySelectorAll('.field-cell');
+    Array.from(fieldCells).forEach(fieldCell => {
+      fieldCell.addEventListener('click', (event) => {
+        if (clicksCounter === 0) {
+          this.bombCoords.forEach(([i, j]) => {
+            const [cellI, cellJ] = fieldCell.id
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+              .map(coord => parseInt(coord.trim(), 10));
+
+            if (i === cellI && j === cellJ) {
+              this.generateBombs();
+              this.generateCellsCover();
+              clicksCounter = 0;
+            } else {
+              clicksCounter += 1;
+            }
+          });
+        }
+        fieldCell.classList.add('open-cells');
+      });
+    });
   }
 }
 
 const normalBoard = new NormalBoard(10, 10, 10);
+
+// normalBoard.generateCellsCover();
+
 normalBoard.generateCellsCover();
