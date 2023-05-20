@@ -1,11 +1,12 @@
 // Creating a normal board 10x10
 class NormalBoard {
-  constructor(width, height, bombCount, number = 0, bombCoords = []) {
+  constructor(width, height, bombCount, number = 0, bombCoords = [], cellsArray = []) {
     this.width = width;
     this.height = height;
     this.bombCount = bombCount;
     this.number = number;
     this.bombCoords = bombCoords;
+    this.cellsArray = cellsArray;
   }
 
   generateBombs() {
@@ -19,7 +20,7 @@ class NormalBoard {
         bombs.push([row, col]);
       }
     }
-    console.log(bombs);
+    console.log(bombs)
     return bombs;
   }
 
@@ -49,7 +50,7 @@ class NormalBoard {
         }
       }
     });
-
+    this.cellsArray = cells;
     return cells;
   }
 
@@ -68,9 +69,6 @@ class NormalBoard {
         fieldCells.classList.add('field-cell');
         fieldCells.id = `[${i}, ${j}]`;
         fieldCells.innerHTML = cells[i][j];
-        // if (cells[i][j] === 'x') {
-        //   console.log('game over');
-        // }
         fieldRow.appendChild(fieldCells);
       }
       mineField.appendChild(fieldRow);
@@ -85,16 +83,16 @@ class NormalBoard {
     let clicksCounter = 0;
     const fieldCells = document.querySelectorAll('.field-cell');
     const mineField = document.querySelector('.mine-field');
+    const gameOver = document.createElement('div');
     let isGameOver = false;
     Array.from(fieldCells).forEach(fieldCell => {
       fieldCell.addEventListener('click', (event) => {
-        // check first cell is not a bomb
+        const [cellI, cellJ] = fieldCell.id
+          .replace('[', '')
+          .replace(']', '')
+          .split(',')
+          .map(coord => parseInt(coord.trim(), 10));
         this.bombCoords.forEach(([i, j]) => {
-          const [cellI, cellJ] = fieldCell.id
-            .replace('[', '')
-            .replace(']', '')
-            .split(',')
-            .map(coord => parseInt(coord.trim(), 10));
           if (clicksCounter === 0) {
             if (i === cellI && j === cellJ) {
               clicksCounter = 0;
@@ -106,24 +104,47 @@ class NormalBoard {
           } else {
             if (i === cellI && j === cellJ) {
               fieldCell.classList.add('field-bomb');
-              const gameOver = document.createElement('div');
               gameOver.classList.add('game-over-overlay');
               isGameOver = true;
               fieldCells.forEach(cell => {
                 cell.classList.add('open-cells');
               });
+              const youLooseModal = document.createElement('p');
+              youLooseModal.textContent = 'Game over';
+              youLooseModal.classList.add('overlay-text');
+              gameOver.appendChild(youLooseModal);
               mineField.appendChild(gameOver);
-              console.log('game over');
             }
           }
         });
+        this.cellsArray[cellI][cellJ] = 'checked';
+        // console.log(this.cellsArray);
 
+        // check win
+        if (this.checkCells(this.cellsArray)) {
+          const youWinModal = document.createElement('p');
+          youWinModal.textContent = 'You win';
+          youWinModal.classList.add('overlay-text');
+          gameOver.classList.add('win-overlay');
+          gameOver.appendChild(youWinModal);
+          mineField.appendChild(gameOver);
+        }
         // add numbers colors
         this.generateCellsColor(event, fieldCell);
-
         fieldCell.classList.add('open-cells');
       });
     });
+  }
+
+  checkCells(cellsArray) {
+    for (let i = 0; i < this.width; i += 1) {
+      for (let j = 0; j < this.height; j += 1) {
+        if (cellsArray[i][j] !== 'checked' && cellsArray[i][j] !== 'x') {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   generateCellsColor(event, fieldCell) {
