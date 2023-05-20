@@ -8,7 +8,6 @@ class NormalBoard {
     this.bombCoords = bombCoords;
   }
 
-
   generateBombs() {
     const bombs = [];
     while (bombs.length < this.bombCount) {
@@ -20,6 +19,7 @@ class NormalBoard {
         bombs.push([row, col]);
       }
     }
+    console.log(bombs);
     return bombs;
   }
 
@@ -68,9 +68,9 @@ class NormalBoard {
         fieldCells.classList.add('field-cell');
         fieldCells.id = `[${i}, ${j}]`;
         fieldCells.innerHTML = cells[i][j];
-        if (cells[i][j] === 'x') {
-          fieldCells.classList.add('field-bomb');
-        }
+        // if (cells[i][j] === 'x') {
+        //   console.log('game over');
+        // }
         fieldRow.appendChild(fieldCells);
       }
       mineField.appendChild(fieldRow);
@@ -84,28 +84,62 @@ class NormalBoard {
   generateCover() {
     let clicksCounter = 0;
     const fieldCells = document.querySelectorAll('.field-cell');
+    const mineField = document.querySelector('.mine-field');
+    let isGameOver = false;
     Array.from(fieldCells).forEach(fieldCell => {
       fieldCell.addEventListener('click', (event) => {
-        if (clicksCounter === 0) {
-          this.bombCoords.forEach(([i, j]) => {
-            const [cellI, cellJ] = fieldCell.id
-              .replace('[', '')
-              .replace(']', '')
-              .split(',')
-              .map(coord => parseInt(coord.trim(), 10));
-
+        // check first cell is not a bomb
+        this.bombCoords.forEach(([i, j]) => {
+          const [cellI, cellJ] = fieldCell.id
+            .replace('[', '')
+            .replace(']', '')
+            .split(',')
+            .map(coord => parseInt(coord.trim(), 10));
+          if (clicksCounter === 0) {
             if (i === cellI && j === cellJ) {
+              clicksCounter = 0;
               this.generateBombs();
               this.generateCellsCover();
-              clicksCounter = 0;
             } else {
               clicksCounter += 1;
             }
-          });
-        }
+          } else {
+            if (i === cellI && j === cellJ) {
+              fieldCell.classList.add('field-bomb');
+              const gameOver = document.createElement('div');
+              gameOver.classList.add('game-over-overlay');
+              isGameOver = true;
+              fieldCells.forEach(cell => {
+                cell.classList.add('open-cells');
+              });
+              mineField.appendChild(gameOver);
+              console.log('game over');
+            }
+          }
+        });
+
+        // add numbers colors
+        this.generateCellsColor(event, fieldCell);
+
         fieldCell.classList.add('open-cells');
       });
     });
+  }
+
+  generateCellsColor(event, fieldCell) {
+    if (event.target.innerHTML === '1') {
+      fieldCell.classList.add('field-one');
+    } else if (event.target.innerHTML === '2') {
+      fieldCell.classList.add('field-two');
+    } else if (event.target.innerHTML === '3') {
+      fieldCell.classList.add('field-three');
+    } else if (event.target.innerHTML === '4') {
+      fieldCell.classList.add('field-four');
+    } else if (event.target.innerHTML === '5') {
+      fieldCell.classList.add('field-five');
+    } else if (event.target.innerHTML === ' ') {
+      fieldCell.classList.add('field-empty');
+    }
   }
 }
 
