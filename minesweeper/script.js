@@ -5,6 +5,7 @@ class NormalBoard {
     this.bombCount = bombCount;
     this.bombCoords = [];
     this.cellsArray = [];
+    this.audioEnabled = true;
   }
 
   generateBombs() {
@@ -67,6 +68,10 @@ class NormalBoard {
     const container = document.createElement('div');
     container.classList.add('container');
 
+    const audioButton = document.createElement('img');
+    audioButton.src = 'assets/imgs/audio-on.png';
+    audioButton.classList.add('audio-button');
+
     const mineField = document.createElement('div');
     mineField.classList.add('mine-field');
 
@@ -105,6 +110,7 @@ class NormalBoard {
     fieldTrackers.appendChild(totalTimeTracker);
     fieldTrackers.appendChild(totalClicksTracker);
 
+    container.appendChild(audioButton);
     container.appendChild(mineField);
     container.appendChild(newGameButton);
     container.appendChild(fieldTrackers);
@@ -119,6 +125,7 @@ class NormalBoard {
     const mineField = document.querySelector('.mine-field');
     const gameOver = document.createElement('div');
     const fieldCells = document.querySelectorAll('.field-cell');
+    let isBomb = false;
 
     const clicksTracker = document.querySelector('.time-tracker');
 
@@ -126,6 +133,10 @@ class NormalBoard {
 
     gameOver.classList.add('game-over-overlay');
     mineField.addEventListener('click', (event) => {
+      const switcher = this.audioEnabled;
+      if (switcher) {
+        this.switchAudio(isBomb);
+      }
       clicksCounter += 1;
       clicksTracker.textContent = `Clicks : ${clicksCounter} `;
       const target = event.target;
@@ -147,6 +158,11 @@ class NormalBoard {
             }
           } else {
             if (i === cellI && j === cellJ) {
+              const switcher = this.audioEnabled;
+              isBomb = true;
+              if (switcher) {
+                this.switchAudio(isBomb);
+              }
               target.classList.add('field-bomb');
               gameOver.innerHTML = '<p class="overlay-text">Game over</p>';
               mineField.querySelectorAll('.field-cell').forEach(cell => {
@@ -164,6 +180,10 @@ class NormalBoard {
         }
 
         if (this.checkCells(this.cellsArray)) {
+          const isVictory = true;
+          if (switcher) {
+            this.switchAudio(isBomb, isVictory);
+          }
           gameOver.innerHTML = '<p class="overlay-text">You win</p>';
           gameOver.classList.add('win-overlay');
           mineField.appendChild(gameOver);
@@ -251,7 +271,7 @@ class NormalBoard {
               isFlagged = true;
               this.bombCoords.forEach(([i, j]) => {
                 if (i === cellI && j === cellJ) {
-                  flagArrayCoords.push([cellI, cellJ]); // Добавляем координату в массив
+                  flagArrayCoords.push([cellI, cellJ]);
                 }
               });
               flagCounter += 1;
@@ -268,7 +288,7 @@ class NormalBoard {
                 fieldCell.removeChild(flag);
               }
               isFlagged = false;
-              flagArrayCoords = flagArrayCoords.filter(coord => coord[0] !== cellI || coord[1] !== cellJ); // Удаляем координату из массива
+              flagArrayCoords = flagArrayCoords.filter(coord => coord[0] !== cellI || coord[1] !== cellJ);
             }
           }
           const hasWon = this.checkVictory(flagArrayCoords, this.bombCoords);
@@ -278,6 +298,12 @@ class NormalBoard {
             const gameOver = document.createElement('div');
             gameOver.innerHTML = '<p class="overlay-text">You win</p>';
             gameOver.classList.add('win-overlay');
+            const isVictory = true;
+            const switcher = this.audioEnabled;
+            const isBomb = false;
+            if (switcher) {
+              this.switchAudio(isBomb, isVictory);
+            }
             mineField.appendChild(gameOver);
           }
         }
@@ -328,7 +354,35 @@ class NormalBoard {
       this.generateCellsCover();
     });
   }
+
+  switchAudio(isBomb = false, isVictory = false) {
+    if (isBomb && this.audioEnabled) {
+      const bombSound = new Audio('assets/audio/gameover.mp3');
+      bombSound.play();
+    } else if (isVictory && this.audioEnabled) {
+      const clickSound = new Audio('assets/audio/win.mp3');
+      clickSound.play();
+    } else if (this.audioEnabled) {
+      const clickSound = new Audio('assets/audio/click.mp3');
+      clickSound.play();
+    }
+  }
+
+  checkOnAudio() {
+    const audioButton = document.querySelector('.audio-button');
+    audioButton.addEventListener('click', (event) => {
+      if (event.target === audioButton) {
+        this.audioEnabled = !this.audioEnabled;
+        if (this.audioEnabled) {
+          audioButton.src = 'assets/imgs/audio-on.png';
+        } else {
+          audioButton.src = 'assets/imgs/audio-off.png';
+        }
+      }
+    });
+  }
 }
 
 const normalBoard = new NormalBoard(10, 10, 10);
 normalBoard.generateCellsCover();
+normalBoard.checkOnAudio();

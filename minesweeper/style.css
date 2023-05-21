@@ -136,3 +136,12 @@ body {
   margin-top: 35px;
   gap: 20px;
 }
+
+.audio-button {
+  position: absolute;
+  width: 50px;
+  z-index: 9;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
+}
