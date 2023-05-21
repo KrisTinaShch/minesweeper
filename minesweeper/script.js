@@ -91,9 +91,25 @@ class NormalBoard {
       mineField.appendChild(fieldRow);
     });
 
+    const fieldTrackers = document.createElement('div');
+    fieldTrackers.classList.add('trackers');
+
+    const totalTimeTracker = document.createElement('p');
+    totalTimeTracker.classList.add('time-tracker');
+
+    const totalClicksTracker = document.createElement('p');
+    totalClicksTracker.classList.add('clicks-tracker');
+
+    // totalTimeTracker.textContent = 'Time : ';
+    // totalClicksTracker.textContent = 'Clicks : ';
+    fieldTrackers.appendChild(totalTimeTracker);
+    fieldTrackers.appendChild(totalClicksTracker);
+
     container.appendChild(mineField);
     container.appendChild(newGameButton);
+    container.appendChild(fieldTrackers);
     document.body.appendChild(container);
+    this.startTimer();
     this.startNewGame();
     this.generateCover();
   }
@@ -103,10 +119,15 @@ class NormalBoard {
     const mineField = document.querySelector('.mine-field');
     const gameOver = document.createElement('div');
     const fieldCells = document.querySelectorAll('.field-cell');
-    gameOver.classList.add('game-over-overlay');
 
+    const clicksTracker = document.querySelector('.time-tracker');
+
+    clicksTracker.textContent = `Clicks : ${clicksCounter} `;
+
+    gameOver.classList.add('game-over-overlay');
     mineField.addEventListener('click', (event) => {
       clicksCounter += 1;
+      clicksTracker.textContent = `Clicks : ${clicksCounter} `;
       const target = event.target;
       if (target.classList.contains('field-cell')) {
         const [cellI, cellJ] = target.id
@@ -136,7 +157,11 @@ class NormalBoard {
           }
         });
 
-        this.cellsArray[cellI][cellJ] = 'checked';
+        if (this.cellsArray[cellI][cellJ] === ' ') {
+          this.openAdjacentSquares(cellI, cellJ);
+        } else {
+          this.cellsArray[cellI][cellJ] = 'checked';
+        }
 
         if (this.checkCells(this.cellsArray)) {
           gameOver.innerHTML = '<p class="overlay-text">You win</p>';
@@ -149,6 +174,44 @@ class NormalBoard {
     });
 
     this.makeFlagOnCell(fieldCells);
+  }
+
+  openAdjacentSquares(row, col) {
+    if (
+      row < 0 ||
+      col < 0 ||
+      row >= this.width ||
+      col >= this.height ||
+      this.cellsArray[row][col] !== ' '
+    ) {
+      return;
+    }
+
+    const targetCell = document.getElementById(`[${row}, ${col}]`);
+    this.cellsArray[row][col] = 'checked';
+    this.generateCellsColor(targetCell);
+    targetCell.classList.add('open-cells');
+
+    // Recursively open adjacent squares in all directions
+    this.openAdjacentSquares(row - 1, col); // Up
+    this.openAdjacentSquares(row + 1, col); // Down
+    this.openAdjacentSquares(row, col - 1); // Left
+    this.openAdjacentSquares(row, col + 1); // Right
+  }
+
+  startTimer() {
+    const totalClicksTracker = document.querySelector('.trackers');
+
+    const timerDisplay = document.createElement('p');
+    timerDisplay.classList.add('time-tracker');
+
+    totalClicksTracker.appendChild(timerDisplay);
+
+    let elapsedTime = 0;
+    this.timerInterval = setInterval(() => {
+      elapsedTime += 1;
+      timerDisplay.textContent = `Time: ${elapsedTime}s`;
+    }, 1000);
   }
 
   checkCells(cellsArray) {
