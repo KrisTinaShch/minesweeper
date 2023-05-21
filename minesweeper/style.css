@@ -12,6 +12,7 @@ body {
   height: 100vh;
   font-family: 'VT323', sans-serif;
   background: #D9D9D9;
+  transition: 0.3s;
 }
 
 .container {
@@ -144,4 +145,28 @@ body {
   top: 40px;
   right: 40px;
   cursor: pointer;
+}
+
+.switch-theme {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  border: navajowhite;
+}
+
+body.dark {
+  background: #001b3a;
+}
+
+.field-cell.dark::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #e1e1e1;
+  z-index: 2;
+}
+
+.trackers.dark{
+  color: #e1e1e1;
 }
