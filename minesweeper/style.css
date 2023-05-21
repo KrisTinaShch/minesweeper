@@ -1,0 +1,147 @@
+@font-face {
+  font-family: 'VT323';
+  src: url('assets/fonts/VT323/VT323-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'VT323', sans-serif;
+  background: #D9D9D9;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mine-field {
+  position: relative;
+}
+
+.field-row {
+  display: flex;
+}
+
+.field-cell {
+  width: 50px;
+  height: 50px;
+  background: #001B3A;
+  color: #565656;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.field-cell::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #001B3A;
+  z-index: 2;
+}
+
+.game-over-overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgb(236 0 0 / 35%);
+}
+
+.win-overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgb(77 255 56 / 35%);
+}
+
+.overlay-text {
+  color: #fff;
+  height: 100%;
+  font-size: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: -2px 2px 5px #000000;
+}
+
+.open-cells::after {
+  display: none;
+}
+
+.field-one {
+  background: #FFD8BE;
+}
+
+.field-two {
+  background: #C6E2FF;
+}
+
+.field-three {
+  background: #8FA4D5;
+}
+
+.field-four {
+  background: #4D3B72;
+}
+
+.field-five {
+  background: #234D20;
+}
+
+.field-empty {
+  background: #797979;
+}
+
+.field-bomb {
+  background: #FF0000;
+  color: #fff;
+}
+
+.flag-img {
+  position: absolute;
+  z-index: 9;
+  width: 40px;
+}
+
+.new-game {
+  font-size: 32px;
+  border-radius: 6px;
+  border-style: none;
+  margin-top: 20px;
+  padding: 3px 18px;
+}
+
+.trackers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  margin-top: 35px;
+  gap: 20px;
+}
+
+.audio-button {
+  position: absolute;
+  width: 50px;
+  z-index: 9;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
+}
