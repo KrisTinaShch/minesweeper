@@ -70,6 +70,10 @@ class NormalBoard {
     const mineField = document.createElement('div');
     mineField.classList.add('mine-field');
 
+    const newGameButton = document.createElement('button');
+    newGameButton.innerHTML = 'New Game';
+    newGameButton.classList.add('new-game');
+
     const cells = this.updateCellsArray();
 
     cells.forEach((row, i) => {
@@ -88,8 +92,9 @@ class NormalBoard {
     });
 
     container.appendChild(mineField);
+    container.appendChild(newGameButton);
     document.body.appendChild(container);
-
+    this.startNewGame();
     this.generateCover();
   }
 
@@ -101,6 +106,7 @@ class NormalBoard {
     gameOver.classList.add('game-over-overlay');
 
     mineField.addEventListener('click', (event) => {
+      clicksCounter += 1;
       const target = event.target;
       if (target.classList.contains('field-cell')) {
         const [cellI, cellJ] = target.id
@@ -137,8 +143,6 @@ class NormalBoard {
           gameOver.classList.add('win-overlay');
           mineField.appendChild(gameOver);
         }
-
-        console.log(this.cellsArray);
         this.generateCellsColor(target);
         target.classList.add('open-cells');
       }
@@ -160,7 +164,7 @@ class NormalBoard {
 
   makeFlagOnCell(fieldCells, isFlagged = false) {
     let flagArrayCoords = [];
-
+    let flagCounter = 1;
     fieldCells.forEach(fieldCell => {
       fieldCell.addEventListener('contextmenu', event => {
         event.preventDefault();
@@ -173,41 +177,46 @@ class NormalBoard {
             .split(',')
             .map(coord => parseInt(coord.trim(), 10));
 
-          this.bombCoords.forEach(([i, j]) => {
-            if (i === cellI && j === cellJ) {
-              const flagIndex = flagArrayCoords.findIndex(coord => coord[0] === i && coord[1] === j);
-              if (!fieldCell.querySelector('.flag-img')) {
-                if (flagIndex === -1) {
-                  console.log('ok');
-                  flagArrayCoords.push([i, j]);
-                  console.log(flagArrayCoords);
-                }
-              } else {
-                if (flagIndex !== -1) {
-                  flagArrayCoords.splice(flagIndex, 1);
-                  console.log(flagArrayCoords);
-                }
-              }
-            }
-          });
-        }
-
-        if (!fieldCell.querySelector('.flag-img')) {
+          const isCellFlagged = flagArrayCoords.some(coord => coord[0] === cellI && coord[1] === cellJ);
           const flag = document.createElement('img');
-          flag.src = 'assets/imgs/icon_mine.png';
-          flag.classList.add('flag-img');
-          fieldCell.appendChild(flag);
-          isFlagged = true;
-        } else {
-          const flag = fieldCell.querySelector('.flag-img');
-          fieldCell.removeChild(flag);
-          isFlagged = false;
-        }
+          console.log(flagCounter);
+          if (flagCounter <= this.bombCount && flagCounter >= 0) {
+            if (!isCellFlagged) {
+              flag.src = 'assets/imgs/icon_mine.png';
+              flag.classList.add('flag-img');
+              fieldCell.appendChild(flag);
+              isFlagged = true;
+              this.bombCoords.forEach(([i, j]) => {
+                if (i === cellI && j === cellJ) {
+                  flagArrayCoords.push([cellI, cellJ]); // Добавляем координату в массив
+                }
+              });
+              flagCounter += 1;
 
-        // Проверка на победу
-        const hasWon = this.checkVictory(flagArrayCoords, this.bombCoords);
-        if (hasWon) {
-          console.log('Поздравляем! Вы выиграли!');
+              flag.addEventListener('contextmenu', event => {
+                event.preventDefault();
+                flagCounter -= 1;
+                if (flag.parentNode === fieldCell) {
+                  fieldCell.removeChild(flag);
+                }
+              });
+            } else {
+              if (flag.parentNode === fieldCell) {
+                fieldCell.removeChild(flag);
+              }
+              isFlagged = false;
+              flagArrayCoords = flagArrayCoords.filter(coord => coord[0] !== cellI || coord[1] !== cellJ); // Удаляем координату из массива
+            }
+          }
+          const hasWon = this.checkVictory(flagArrayCoords, this.bombCoords);
+
+          if (hasWon) {
+            const mineField = document.querySelector('.mine-field');
+            const gameOver = document.createElement('div');
+            gameOver.innerHTML = '<p class="overlay-text">You win</p>';
+            gameOver.classList.add('win-overlay');
+            mineField.appendChild(gameOver);
+          }
         }
       });
     });
@@ -221,7 +230,6 @@ class NormalBoard {
     }
     return flagArrayCoords.every(coord => bombCoords.some(([i, j]) => i === coord[0] && j === coord[1]));
   }
-
 
   generateCellsColor(target) {
     const cellValue = target.innerHTML;
@@ -247,6 +255,15 @@ class NormalBoard {
       default:
         break;
     }
+  }
+
+  startNewGame() {
+    const buttonNewGame = document.querySelector('.new-game');
+    buttonNewGame.addEventListener('click', () => {
+      const container = document.querySelector('.container');
+      container.parentNode.removeChild(container);
+      this.generateCellsCover();
+    });
   }
 }
 
