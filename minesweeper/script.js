@@ -105,11 +105,15 @@ class NormalBoard {
     const totalClicksTracker = document.createElement('p');
     totalClicksTracker.classList.add('clicks-tracker');
 
-    // totalTimeTracker.textContent = 'Time : ';
-    // totalClicksTracker.textContent = 'Clicks : ';
+    const switchThemeButton = document.createElement('button');
+    switchThemeButton.id = 'themeButton';
+    switchThemeButton.innerHTML = 'Switch Theme';
+    switchThemeButton.classList.add('switch-theme');
+
     fieldTrackers.appendChild(totalTimeTracker);
     fieldTrackers.appendChild(totalClicksTracker);
 
+    container.appendChild(switchThemeButton);
     container.appendChild(audioButton);
     container.appendChild(mineField);
     container.appendChild(newGameButton);
@@ -118,6 +122,8 @@ class NormalBoard {
     this.startTimer();
     this.startNewGame();
     this.generateCover();
+    const themeButton = document.getElementById('themeButton');
+    themeButton.addEventListener('click', toggleTheme);
   }
 
   generateCover() {
@@ -386,3 +392,30 @@ class NormalBoard {
 const normalBoard = new NormalBoard(10, 10, 10);
 normalBoard.generateCellsCover();
 normalBoard.checkOnAudio();
+
+let theme = 'light';
+function toggleTheme() {
+  const body = document.querySelector('body');
+  const fieldCells = document.querySelectorAll('.field-cell');
+  const trackers = document.querySelector('.trackers');
+  if (theme === 'light') {
+    theme = 'dark';
+    body.classList.add('dark');
+    Array.from(fieldCells).forEach((fieldCell) => {
+      fieldCell.classList.add('dark');
+    });
+    trackers.classList.add('dark');
+  } else {
+    theme = 'light';
+    if (body.classList.contains('dark')) {
+      body.classList.remove('dark');
+      Array.from(fieldCells).forEach((fieldCell) => {
+        fieldCell.classList.remove('dark');
+      });
+      trackers.classList.remove('dark');
+    }
+  }
+}
+
+const themeButton = document.getElementById('themeButton');
+themeButton.addEventListener('click', toggleTheme);
