@@ -1,11 +1,37 @@
+let currentTheme = 'light'; // Изначально установим тему 'light'
+
+function toggleTheme(newTheme) {
+  const body = document.querySelector('body');
+  const fieldCells = document.querySelectorAll('.field-cell');
+  const trackers = document.querySelector('.trackers');
+
+  currentTheme = newTheme; // Обновляем текущую выбранную тему
+
+  if (currentTheme === 'light') {
+    body.classList.add('dark');
+    Array.from(fieldCells).forEach((fieldCell) => {
+      fieldCell.classList.add('dark');
+    });
+    trackers.classList.add('dark');
+  } else {
+    body.classList.remove('dark');
+    Array.from(fieldCells).forEach((fieldCell) => {
+      fieldCell.classList.remove('dark');
+    });
+    trackers.classList.remove('dark');
+  }
+}
+
 class NormalBoard {
-  constructor(width, height, bombCount) {
+  constructor(width, height, bombCount, theme) {
     this.width = width;
     this.height = height;
     this.bombCount = bombCount;
     this.bombCoords = [];
     this.cellsArray = [];
     this.audioEnabled = true;
+    this.theme = theme;
+    this.timerInterval = null;
   }
 
   generateBombs() {
@@ -105,6 +131,9 @@ class NormalBoard {
     const totalClicksTracker = document.createElement('p');
     totalClicksTracker.classList.add('clicks-tracker');
 
+    const bombsTracker = document.createElement('p');
+    bombsTracker.classList.add('bombs-tracker');
+
     const switchThemeButton = document.createElement('button');
     switchThemeButton.id = 'themeButton';
     switchThemeButton.innerHTML = 'Switch Theme';
@@ -112,6 +141,7 @@ class NormalBoard {
 
     fieldTrackers.appendChild(totalTimeTracker);
     fieldTrackers.appendChild(totalClicksTracker);
+    fieldTrackers.appendChild(bombsTracker);
 
     container.appendChild(switchThemeButton);
     container.appendChild(audioButton);
@@ -123,7 +153,10 @@ class NormalBoard {
     this.startNewGame();
     this.generateCover();
     const themeButton = document.getElementById('themeButton');
-    themeButton.addEventListener('click', toggleTheme);
+    themeButton.addEventListener('click', () => {
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      toggleTheme(newTheme);
+    });
   }
 
   generateCover() {
@@ -134,7 +167,6 @@ class NormalBoard {
     let isBomb = false;
 
     const clicksTracker = document.querySelector('.time-tracker');
-
     clicksTracker.textContent = `Clicks : ${clicksCounter} `;
 
     gameOver.classList.add('game-over-overlay');
@@ -166,6 +198,7 @@ class NormalBoard {
             if (i === cellI && j === cellJ) {
               const switcher = this.audioEnabled;
               isBomb = true;
+              clearInterval(this.timerInterval);
               if (switcher) {
                 this.switchAudio(isBomb);
               }
@@ -200,6 +233,11 @@ class NormalBoard {
     });
 
     this.makeFlagOnCell(fieldCells);
+
+    const audioButton = document.querySelector('.audio-button');
+    audioButton.addEventListener('click', (event) => {
+      this.checkOnAudio(event.target, audioButton);
+    });
   }
 
   openAdjacentSquares(row, col) {
@@ -254,6 +292,11 @@ class NormalBoard {
   makeFlagOnCell(fieldCells, isFlagged = false) {
     let flagArrayCoords = [];
     let flagCounter = 1;
+    let remainingBombs = 10;
+
+    const bombsTracker = document.querySelector('.bombs-tracker');
+    bombsTracker.textContent = `Bombs : ${remainingBombs - flagCounter + 1} `;
+
     fieldCells.forEach(fieldCell => {
       fieldCell.addEventListener('contextmenu', event => {
         event.preventDefault();
@@ -313,6 +356,7 @@ class NormalBoard {
             mineField.appendChild(gameOver);
           }
         }
+        bombsTracker.textContent = `Bombs : ${remainingBombs - flagCounter + 1} `;
       });
     });
 
@@ -357,7 +401,11 @@ class NormalBoard {
     buttonNewGame.addEventListener('click', () => {
       const container = document.querySelector('.container');
       container.parentNode.removeChild(container);
-      this.generateCellsCover();
+
+      const newGame = new NormalBoard(this.width, this.height, this.bombCount, currentTheme);
+      newGame.audioEnabled = this.audioEnabled;
+      newGame.generateCellsCover();
+      toggleTheme(currentTheme);
     });
   }
 
@@ -374,48 +422,25 @@ class NormalBoard {
     }
   }
 
-  checkOnAudio() {
-    const audioButton = document.querySelector('.audio-button');
-    audioButton.addEventListener('click', (event) => {
-      if (event.target === audioButton) {
-        this.audioEnabled = !this.audioEnabled;
-        if (this.audioEnabled) {
-          audioButton.src = 'assets/imgs/audio-on.png';
-        } else {
-          audioButton.src = 'assets/imgs/audio-off.png';
-        }
+  checkOnAudio(event, audioButton) {
+    if (event === audioButton) {
+      this.audioEnabled = !this.audioEnabled;
+      if (this.audioEnabled) {
+        audioButton.src = 'assets/imgs/audio-on.png';
+      } else {
+        audioButton.src = 'assets/imgs/audio-off.png';
       }
-    });
+    }
   }
 }
 
 const normalBoard = new NormalBoard(10, 10, 10);
 normalBoard.generateCellsCover();
-normalBoard.checkOnAudio();
-
-let theme = 'light';
-function toggleTheme() {
-  const body = document.querySelector('body');
-  const fieldCells = document.querySelectorAll('.field-cell');
-  const trackers = document.querySelector('.trackers');
-  if (theme === 'light') {
-    theme = 'dark';
-    body.classList.add('dark');
-    Array.from(fieldCells).forEach((fieldCell) => {
-      fieldCell.classList.add('dark');
-    });
-    trackers.classList.add('dark');
-  } else {
-    theme = 'light';
-    if (body.classList.contains('dark')) {
-      body.classList.remove('dark');
-      Array.from(fieldCells).forEach((fieldCell) => {
-        fieldCell.classList.remove('dark');
-      });
-      trackers.classList.remove('dark');
-    }
-  }
-}
+const audioButton = document.querySelector('.audio-button');
+normalBoard.checkOnAudio(audioButton);
 
 const themeButton = document.getElementById('themeButton');
-themeButton.addEventListener('click', toggleTheme);
+themeButton.addEventListener('click', () => {
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  toggleTheme(newTheme);
+});
