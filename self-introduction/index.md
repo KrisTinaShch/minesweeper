@@ -1,0 +1,11 @@
+https://youtu.be/SE1pcgN0-9c
+
+Hello! My name is Kristina, I'm 19 years old, and I have been living in Bulgaria for 5 years now. Here, I attended school, and a year after finishing it, I got a job at a company as a junior frontend developer. Initially, for the first half year, my work mainly involved supporting WordPress websites. After that, the complexity of the work started increasing. I started creating landing pages, developing small functionalities using JavaScript, and since we work with WordPress, I also had the opportunity to write new features in PHP.
+
+I became interested in programming and web development back when I was in school. My school's computer science teacher suggested that I take a course on learning C#, which gave me a basic understanding of what programming is and how it works. As for web development, I got introduced to it through courses organized by our school. Those courses focused solely on HTML. I enrolled without any prior knowledge of web development, but I got hooked, and I continued to learn other technologies like CSS, JavaScript, and frameworks for web development. What I like about web development is that I can see the immediate result, which gives me a clear understanding of what I'm doing at any given moment. It's also very motivating when you see that you're able to accomplish something; it's inspiring.
+
+I joined RSSchool to broaden my horizons and, importantly for me, to have practical tasks, whether it's related to coding or web design. I get inspired when I see the finished work that I've done. I particularly felt this when I created the Virtual Keyboard and Minesweeper projects. They were challenging tasks, and although I didn't complete them fully according to the requirements due to time constraints, I was pleased with the results of my work.
+
+Another motivating factor for me is that recently I've been considering connecting my work with game development, which, of course, requires a tremendous amount of work and knowledge. But it's something I strive for.
+
+Thank you for your attention.
